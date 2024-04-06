@@ -10,6 +10,12 @@ use App\Http\Requests\TicketStoreRequest;
 
 class TicketController extends Controller
 {
+    public function index()
+    {
+        $tickets = Ticket::all();
+        return Inertia::render('Ticket/Index', ['tickets' => $tickets]);
+    }
+
     public function create()
     {
         return Inertia::render('Ticket/Create');
