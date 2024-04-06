@@ -27,4 +27,11 @@ class TicketController extends Controller
 
         return redirect()->route('ticket.create', $ticket);
     }
+
+    public function show($id)
+    {
+        $ticket = Ticket::findOrFail($id);
+        
+        return Inertia::render('Ticket/Show', ['ticket' => $ticket]);
+    }
 }

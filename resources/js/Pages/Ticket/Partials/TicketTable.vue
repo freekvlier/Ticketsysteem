@@ -42,8 +42,8 @@
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 <div class="flex gap-2">
-                <button @click="viewTicket(ticket.id)" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">View</button>
-                <button @click="markAsDone(ticket.id)" class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded">Mark as Done</button>
+                  <a :href="route('ticket.show', ticket.id)" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">View</a>
+                  <button class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded">Mark as Done</button>
                 </div>
             </td>
           </tr>
@@ -62,5 +62,6 @@ const props = defineProps<{
         priority: string; 
     }[];
 }>();
+
 </script>
   
