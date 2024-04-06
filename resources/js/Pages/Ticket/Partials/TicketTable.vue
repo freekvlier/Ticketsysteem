@@ -19,6 +19,9 @@
                 Priority
             </th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Status
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Actions
             </th>
           </tr>
@@ -41,9 +44,11 @@
                 {{ ticket.priority }}
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ ticket.status }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 <div class="flex gap-2">
                   <Link :href="route('ticket.show', ticket.id)" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">View</Link>
-                  <button class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded">Mark as Done</button>
                 </div>
             </td>
           </tr>
@@ -61,7 +66,8 @@ const props = defineProps<{
         name: string; 
         email: string; 
         subject: string; 
-        priority: string; 
+        priority: string;
+        status: string;
     }[];
 }>();
 

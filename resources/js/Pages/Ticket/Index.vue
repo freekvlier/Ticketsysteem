@@ -3,7 +3,16 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, usePage } from '@inertiajs/vue3';
 import TicketTable from './Partials/TicketTable.vue';
 
-const { tickets } = usePage().props;
+const props = defineProps<{
+    tickets: { 
+        id: number; 
+        name: string; 
+        email: string; 
+        subject: string; 
+        priority: string;
+        status: string;
+    }[];
+}>();
 </script>
 
 <template>

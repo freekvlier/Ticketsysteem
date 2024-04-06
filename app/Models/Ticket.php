@@ -15,8 +15,14 @@ class Ticket extends Model
         'subject',
         'priority',
         'content',
-        'attachments'
+        'attachments',
+        'status',
     ];
+
+    public function replies()
+    {
+        return $this->hasMany(TicketReply::class);
+    }
 
     public function assignedTo()
     {

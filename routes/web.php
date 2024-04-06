@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\TicketReplyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,6 +31,7 @@ Route::get('/tickets', [TicketController::class, 'index'])->name('ticket.index')
 Route::get('/ticket', [TicketController::class, 'create'])->name('ticket.create');
 Route::post('/ticket', [TicketController::class, 'store'])->name('ticket.store');
 Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('ticket.show');
+Route::post('/tickets/{ticket}/reply', [TicketReplyController::class, 'store'])->name('ticket.reply.store');
 
 
 
