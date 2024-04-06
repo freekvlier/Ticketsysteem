@@ -9,17 +9,21 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				// "mikestead.dotenv",
-				// "amiralizadeh9480.laravel-extra-intellisense",
-				// "ryannaddy.laravel-artisan",
-				// "onecentlin.laravel5-snippets",
-				// "onecentlin.laravel-blade"
+				"mikestead.dotenv",
+				"amiralizadeh9480.laravel-extra-intellisense",
+				"ryannaddy.laravel-artisan",
+				"onecentlin.laravel5-snippets",
+				"onecentlin.laravel-blade",
+				"Vue.volar",
+				"mtxr.sqltools",
+				"mtxr.sqltools-driver-mysql"
 			],
 			"settings": {}
 		}
 	},
 	"remoteUser": "sail",
-	"postCreateCommand": "chown -R 1000:1000 /var/www/html 2>/dev/null || true"
+	"postCreateCommand": "chown -R 1000:1000 /var/www/html 2>/dev/null || true",
+	"postStartCommand": "npm install && php artisan migrate && npm run dev"
 	// "forwardPorts": [],
 	// "runServices": [],
 	// "shutdownAction": "none",
