@@ -13,6 +13,9 @@
         <div class="py-12">
           <div class="flex flex-col gap-7 max-w-7xl mx-auto sm:px-6 lg:px-8">
             <TicketReplyForm :ticketId="ticket.id" />
+            <div v-for="reply in ticket.replies.slice().reverse()" :key="reply.id">
+              <TicketReply :reply="reply" />
+            </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
               <div class="p-6 text-gray-900 dark:text-gray-100">
                 <h2 class="text-center font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight mx-auto">
@@ -55,6 +58,7 @@
   import { Head, usePage } from '@inertiajs/vue3';
   import { Link } from '@inertiajs/vue3';
   import TicketReplyForm from './Partials/TicketReplyForm.vue';
+  import TicketReply from './Partials/TicketReply.vue';
   
   const props = defineProps<{
     ticket: {
@@ -65,6 +69,13 @@
       priority: string;
       content: string;
       attachments: string;
+      replies: {
+        id: number;
+        content: string;
+        attachments: { url: string; name: string }[] | null;
+        user: { name: string };
+        created_at: string;
+      }[];
     };
   }>();
   </script>

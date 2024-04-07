@@ -30,8 +30,8 @@ class TicketController extends Controller
 
     public function show($id)
     {
-        $ticket = Ticket::findOrFail($id);
+        $ticket = Ticket::with('replies.user')->findOrFail($id);
         
         return Inertia::render('Ticket/Show', ['ticket' => $ticket]);
-    }
+    }    
 }
