@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\TicketReply;
 use App\Http\Requests\TicketReplyRequest;
+use Illuminate\Support\Facades\Storage;
 
 class TicketReplyController extends Controller
 {
@@ -21,14 +22,17 @@ class TicketReplyController extends Controller
         if ($request->hasFile('attachments')) {
             $attachments = [];
             foreach ($request->file('attachments') as $file) {
-                $path = $file->store('attachments');
+                $path = $file->store('public/attachments');
+    
+                $url = Storage::url($path);
+    
                 $attachments[] = [
                     'name' => $file->getClientOriginalName(),
                     'size' => $file->getSize(),
-                    'path' => $path,
+                    'path' => $url,
                 ];
             }
-
+    
             $data['attachments'] = json_encode($attachments);
         }
 

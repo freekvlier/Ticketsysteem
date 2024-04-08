@@ -8,6 +8,7 @@ use App\Models\Ticket;
 use App\Http\Requests\TicketStoreRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class TicketController extends Controller
 {
@@ -32,14 +33,17 @@ class TicketController extends Controller
         if ($request->hasFile('attachments')) {
             $attachments = [];
             foreach ($request->file('attachments') as $file) {
-                $path = $file->store('attachments');
+                $path = $file->store('public/attachments');
+    
+                $url = Storage::url($path);
+    
                 $attachments[] = [
                     'name' => $file->getClientOriginalName(),
                     'size' => $file->getSize(),
-                    'path' => $path,
+                    'path' => $url,
                 ];
             }
-
+    
             $data['attachments'] = json_encode($attachments);
         }
 
@@ -52,9 +56,10 @@ class TicketController extends Controller
     {
         $ticket = Ticket::with('replies.user')->findOrFail($id);
         
-        return Inertia::render('Ticket/Show', [
-            'ticket' => $ticket,
-            'attachments' => json_decode($ticket->attachments, true)
-        ]);
-    }    
+        // Decode the attachments back to an array
+        $ticket->attachments = json_decode($ticket->attachments, true);
+        
+        return Inertia::render('Ticket/Show', ['ticket' => $ticket]);
+    }
+  
 }

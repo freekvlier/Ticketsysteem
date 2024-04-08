@@ -44,9 +44,9 @@
                 <div class="mb-4">
                   <strong>Attachments</strong>
                   <ul>
-                    <li v-for="(attachment, index) in ticket.attachments" :key="index">
-                        <a :href="attachment.url" download>{{ attachment.name }}</a>
-                    </li>
+                  <li v-for="(attachment, index) in ticket.attachments" :key="index">
+                      <a :href="attachment.path" download>{{ attachment.name }}</a>
+                  </li>
                 </ul>
                 </div>
               </div>
@@ -64,6 +64,22 @@
   import TicketReplyForm from './Partials/TicketReplyForm.vue';
   import TicketReply from './Partials/TicketReply.vue';
   
+  interface Attachment {
+    name: string;
+    path: string;
+    size: number;
+  }
+
+  interface Reply {
+    id: number;
+    content: string;
+    attachments: Attachment[] | null;
+    user: {
+      name: string;
+    };
+    created_at: string;
+  }
+
   const props = defineProps<{
     ticket: {
       id: number;
@@ -72,15 +88,15 @@
       subject: string;
       priority: string;
       content: string;
-      attachments: { url: string; name: string }[] | null;
-      replies: {
-        id: number;
-        content: string;
-        attachments: { url: string; name: string }[] | null; // Adjust the type here
-        user: { name: string };
-        created_at: string;
-      }[];
+      attachments: Attachment[] | null;
+      replies: Reply[];
+      status: string;
+      created_at: string;
+      updated_at: string;
     };
   }>();
+
+  console.log(props.ticket);
+  props.ticket.attachments = JSON.parse(props.ticket.attachments);
   </script>
   

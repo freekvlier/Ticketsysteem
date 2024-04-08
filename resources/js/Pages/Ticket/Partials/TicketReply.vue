@@ -16,7 +16,7 @@
           <strong>Attachments</strong>
           <ul>
             <li v-for="(attachment, index) in reply.attachments" :key="index">
-              <a :href="attachment.url" target="_blank">{{ attachment.name }}</a>
+                <a :href="attachment.path" download>{{ attachment.name }}</a>
             </li>
           </ul>
         </div>
@@ -26,13 +26,21 @@
   
   <script setup lang="ts">
   import { defineProps } from 'vue';
-  
+
+  interface Attachment {
+    name: string;
+    path: string;
+    size: number;
+  }
+
   const props = defineProps<{
     reply: {
       id: number;
       content: string;
-      attachments: { url: string; name: string }[] | null;
-      user: { name: string };
+      attachments: Attachment[] | null;
+      user: {
+        name: string;
+      };
       created_at: string;
     };
   }>();
@@ -41,5 +49,6 @@
     // Implement your timestamp formatting logic here
     return timestamp; // Placeholder implementation
   };
+  props.reply.attachments = JSON.parse(props.reply.attachments);
   </script>
   
