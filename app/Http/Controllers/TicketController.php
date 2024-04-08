@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-
 use App\Models\Ticket;
 use App\Http\Requests\TicketStoreRequest;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 class TicketController extends Controller
 {
@@ -18,7 +19,10 @@ class TicketController extends Controller
 
     public function create()
     {
-        return Inertia::render('Ticket/Create');
+        return Inertia::render('Ticket/Create', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+        ]);
     }
 
     public function store(TicketStoreRequest $request)
@@ -41,7 +45,7 @@ class TicketController extends Controller
 
         $ticket = Ticket::create($data);
 
-        return redirect()->route('ticket.create', $ticket);
+        return redirect()->back()->with('success', 'Ticket created successfully.');
     }
 
     public function show($id)
