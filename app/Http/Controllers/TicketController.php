@@ -14,8 +14,24 @@ class TicketController extends Controller
 {
     public function index()
     {
-        $tickets = Ticket::all();
-        return Inertia::render('Ticket/Index', ['tickets' => $tickets]);
+        $tickets = Ticket::paginate(20)->through(function ($item) {
+            return [
+                'id' => $item->id,
+                'name' => $item->name,
+                'email' => $item->email,
+                'subject' => $item->subject,
+                'priority' => $item->priority,
+                'status' => $item->status,
+            ];
+        });
+
+        $pagination = $tickets->toArray();
+        unset($pagination['data']);
+
+        return Inertia::render('Ticket/Index', [
+            'tickets' => $tickets->items(),
+            'pagination' => $pagination,
+        ]);
     }
 
     public function create()
@@ -56,10 +72,6 @@ class TicketController extends Controller
     {
         $ticket = Ticket::with('replies.user')->findOrFail($id);
         
-        // Decode the attachments back to an array
-        $ticket->attachments = json_decode($ticket->attachments, true);
-        
         return Inertia::render('Ticket/Show', ['ticket' => $ticket]);
     }
-  
 }

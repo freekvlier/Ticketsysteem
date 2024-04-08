@@ -96,7 +96,6 @@
     };
   }>();
 
-  console.log(props.ticket);
   props.ticket.attachments = JSON.parse(props.ticket.attachments);
   </script>
   

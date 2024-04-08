@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, usePage } from '@inertiajs/vue3';
 import TicketTable from './Partials/TicketTable.vue';
+import Pagination from '@/Components/Pagination.vue';
 
 const props = defineProps<{
     tickets: { 
@@ -12,6 +13,7 @@ const props = defineProps<{
         priority: string;
         status: string;
     }[];
+    pagination: Object;
 }>();
 </script>
 
@@ -29,8 +31,12 @@ const props = defineProps<{
                     <TicketTable :tickets="tickets" />
                 </div>
             </div>
+            <div v-if="pagination">
+                <pagination :links="pagination.links" />
+            </div>
             </div>
         </div>
+        
         </AuthenticatedLayout>
     </div>
 </template>

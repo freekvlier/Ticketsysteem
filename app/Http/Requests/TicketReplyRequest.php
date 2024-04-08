@@ -23,7 +23,7 @@ class TicketReplyRequest extends FormRequest
     {
         return [
             'content' => 'required|string|max:65535',
-            'attachments.*' => 'nullable|file|max:10240',
+            'attachments.*' => 'nullable|file|mimes:jpeg,png,pdf,doc,docx|max:10240',
             'status' => 'nullable|string|in:open,closed,pending|max:255',
         ];
     }

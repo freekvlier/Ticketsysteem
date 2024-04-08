@@ -27,7 +27,7 @@ class TicketStoreRequest extends FormRequest
             'subject' => 'required|string|max:255',
             'priority' => 'nullable|string|in:high,medium,low|max:255',
             'content' => 'required|string|max:65535',
-            'attachments.*' => 'nullable|file|max:10240',
+            'attachments.*' => 'nullable|file|mimes:jpeg,png,pdf,doc,docx|max:10240',
         ];
     }
 }
