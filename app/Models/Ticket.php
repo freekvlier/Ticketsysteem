@@ -23,9 +23,4 @@ class Ticket extends Model
     {
         return $this->hasMany(TicketReply::class);
     }
-
-    public function assignedTo()
-    {
-        return $this->belongsTo(User::class, 'assigned_to');
-    }
 }

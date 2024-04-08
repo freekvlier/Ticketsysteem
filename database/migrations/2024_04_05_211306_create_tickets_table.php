@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('priority')->nullable();
             $table->text('content');
             $table->json('attachments')->nullable();
-            $table->foreignId('assigned_to')->nullable()->constrained('users');
             $table->string('status')->default('open');
         });
     }

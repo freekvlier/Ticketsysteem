@@ -23,7 +23,23 @@ class TicketController extends Controller
 
     public function store(TicketStoreRequest $request)
     {
-        $ticket = Ticket::create($request->all());
+        $data = $request->validated();
+
+        if ($request->hasFile('attachments')) {
+            $attachments = [];
+            foreach ($request->file('attachments') as $file) {
+                $path = $file->store('attachments');
+                $attachments[] = [
+                    'name' => $file->getClientOriginalName(),
+                    'size' => $file->getSize(),
+                    'path' => $path,
+                ];
+            }
+
+            $data['attachments'] = json_encode($attachments);
+        }
+
+        $ticket = Ticket::create($data);
 
         return redirect()->route('ticket.create', $ticket);
     }
@@ -32,6 +48,9 @@ class TicketController extends Controller
     {
         $ticket = Ticket::with('replies.user')->findOrFail($id);
         
-        return Inertia::render('Ticket/Show', ['ticket' => $ticket]);
+        return Inertia::render('Ticket/Show', [
+            'ticket' => $ticket,
+            'attachments' => json_decode($ticket->attachments, true)
+        ]);
     }    
 }

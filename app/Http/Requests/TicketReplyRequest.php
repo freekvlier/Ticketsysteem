@@ -22,9 +22,9 @@ class TicketReplyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'content' => 'required|string',
-            'attachments' => 'nullable|array',
-            'status' => 'nullable|string|in:open,closed,pending',
+            'content' => 'required|string|max:65535',
+            'attachments.*' => 'nullable|file|max:10240',
+            'status' => 'nullable|string|in:open,closed,pending|max:255',
         ];
     }
 }

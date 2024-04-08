@@ -7,14 +7,14 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -26,12 +26,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::get('/tickets', [TicketsController::class, 'index'])->middleware('auth')->name('ticket.index');
-Route::get('/tickets', [TicketController::class, 'index'])->name('ticket.index');
-Route::get('/ticket', [TicketController::class, 'create'])->name('ticket.create');
+Route::get('/tickets', [TicketController::class, 'index'])->middleware('auth')->name('ticket.index');
+Route::get('/', [TicketController::class, 'create'])->name('ticket.create');
 Route::post('/ticket', [TicketController::class, 'store'])->name('ticket.store');
-Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('ticket.show');
-Route::post('/tickets/{ticket}/reply', [TicketReplyController::class, 'store'])->name('ticket.reply.store');
+Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->middleware('auth')->name('ticket.show');
+Route::post('/tickets/{ticket}/reply', [TicketReplyController::class, 'store'])->middleware('auth')->name('ticket.reply.store');
 
 
 

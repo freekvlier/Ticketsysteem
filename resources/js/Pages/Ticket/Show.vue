@@ -14,7 +14,7 @@
           <div class="flex flex-col gap-7 max-w-7xl mx-auto sm:px-6 lg:px-8">
             <TicketReplyForm :ticketId="ticket.id" />
             <div v-for="reply in ticket.replies.slice().reverse()" :key="reply.id">
-              <TicketReply :reply="reply" />
+                <TicketReply :reply="reply" />
             </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
               <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -43,7 +43,11 @@
                 </div>
                 <div class="mb-4">
                   <strong>Attachments</strong>
-                  <p>{{ ticket.attachments }}</p>
+                  <ul>
+                    <li v-for="(attachment, index) in ticket.attachments" :key="index">
+                        <a :href="attachment.url" download>{{ attachment.name }}</a>
+                    </li>
+                </ul>
                 </div>
               </div>
             </div>
@@ -68,11 +72,11 @@
       subject: string;
       priority: string;
       content: string;
-      attachments: string;
+      attachments: { url: string; name: string }[] | null;
       replies: {
         id: number;
         content: string;
-        attachments: { url: string; name: string }[] | null;
+        attachments: { url: string; name: string }[] | null; // Adjust the type here
         user: { name: string };
         created_at: string;
       }[];

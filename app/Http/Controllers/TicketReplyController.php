@@ -16,9 +16,25 @@ class TicketReplyController extends Controller
 
         $userId = auth()->id();
 
-        $reply = new TicketReply($request->all());
-        $reply->user_id = $userId;
+        $data = $request->validated();
+        
+        if ($request->hasFile('attachments')) {
+            $attachments = [];
+            foreach ($request->file('attachments') as $file) {
+                $path = $file->store('attachments');
+                $attachments[] = [
+                    'name' => $file->getClientOriginalName(),
+                    'size' => $file->getSize(),
+                    'path' => $path,
+                ];
+            }
 
+            $data['attachments'] = json_encode($attachments);
+        }
+
+        $reply = new TicketReply();
+        $reply->fill($data);
+        $reply->user_id = $userId;
         $ticket->replies()->save($reply);
 
         return back()->with('success', 'Reply added successfully.');

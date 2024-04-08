@@ -8,21 +8,29 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import TextAreaInput from '@/Components/TextAreaInput.vue';
 
 const form = useForm({
-    name: '',
-    email: '',
-    subject: '',
-    priority: 'medium',
-    content: '',
-    attachments: '',
+  name: '',
+  email: '',
+  subject: '',
+  priority: 'medium',
+  content: '',
+  attachments: [] as File[],
 });
 
+const handleFileChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const files = target.files;
+  if (files) {
+    form.attachments = Array.from(files);
+  }
+};
+
 const submit = () => {
-    form.post(route('ticket.store'), {
-        preserveScroll: true,
-        onFinish: ()  => {
-            form.reset();
-        },
-    });
+  form.post(route('ticket.store'), {
+    preserveScroll: true,
+    onFinish: () => {
+      form.reset();
+    },
+  });
 };
 </script>
 
@@ -142,16 +150,13 @@ const submit = () => {
 
                 <div class="mt-4">
                     <InputLabel for="attachments" value="Bijlages" />
-
-                    <TextInput
+                    <input
                         id="attachments"
-                        type="text"
+                        type="file"
                         class="mt-1 block w-full"
-                        v-model="form.attachments"
-                        autofocus
-                        autocomplete="attachments"
+                        v-on:change="handleFileChange"
+                        multiple
                     />
-
                     <InputError class="mt-2" :message="form.errors.attachments" />
                 </div>
 
