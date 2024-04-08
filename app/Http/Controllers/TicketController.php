@@ -14,24 +14,20 @@ class TicketController extends Controller
 {
     public function index()
     {
-        $tickets = Ticket::paginate(20)->through(function ($item) {
+        $tickets = Ticket::paginate(20)->through(function ($ticket) {
             return [
-                'id' => $item->id,
-                'name' => $item->name,
-                'email' => $item->email,
-                'subject' => $item->subject,
-                'priority' => $item->priority,
-                'status' => $item->status,
+                'id' => $ticket->id,
+                'name' => $ticket->name,
+                'email' => $ticket->email,
+                'subject' => $ticket->subject,
+                'priority' => $ticket->priority,
+                'status' => $ticket->status,
             ];
         });
 
-        $pagination = $tickets->toArray();
-        unset($pagination['data']);
+        // dd($tickets);
 
-        return Inertia::render('Ticket/Index', [
-            'tickets' => $tickets->items(),
-            'pagination' => $pagination,
-        ]);
+        return Inertia::render('Ticket/Index', ['tickets' => $tickets]);
     }
 
     public function create()
