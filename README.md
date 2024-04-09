@@ -8,7 +8,6 @@ This is a simple ticketing system application built with Laravel and Vue.js.
 - Users can view a list of tickets and their details.
 - Users can reply to tickets, adding additional information or updates.
 - Authentication system for user management.
-- Integration with Laravel pagination for better performance.
 
 ## Technologies
 
