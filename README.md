@@ -99,7 +99,13 @@ npm run dev
 ```
 php artisan serve
 ```
-12. Access the application in your browser at http://localhost.
+
+12. Create symlink to uploaded storage
+```
+ php artisan storage:link
+```
+
+13. Access the application in your browser at http://localhost.
 
 ## Installation using Docker (Laravel Sail)
 
@@ -146,7 +152,12 @@ docker run --rm \
 ./vendor/bin/sail up -d
 ```
 
-7. Access the application in your browser at http://localhost.
+7. Create symlink to uploaded storage
+```
+php artisan storage:link
+```
+
+8. Access the application in your browser at http://localhost.
 
 ## Usage
 

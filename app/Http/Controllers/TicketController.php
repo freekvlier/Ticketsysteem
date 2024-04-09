@@ -18,8 +18,18 @@ class TicketController extends Controller
 
         $sortBy = $request->input('sortBy', 'id');
         $sortDirection = $request->input('sortDirection', 'asc');
-        
-        $query->orderBy($sortBy, $sortDirection);
+
+        if ($sortBy === 'priority') {
+            $priorities = ['low', 'medium', 'high'];
+            if ($sortDirection === 'asc') {
+                $priorityOrder = "FIELD(priority, '" . implode("', '", $priorities) . "') ASC";
+            } else {
+                $priorityOrder = "FIELD(priority, '" . implode("', '", $priorities) . "') DESC";
+            }
+            $query->orderByRaw($priorityOrder);
+        } else {
+            $query->orderBy($sortBy, $sortDirection);
+        }
 
         $tickets = $query->paginate(20)->through(function ($ticket) {
             return [
