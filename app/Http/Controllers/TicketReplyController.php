@@ -14,6 +14,7 @@ class TicketReplyController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         $ticket->status = $request->status ?? 'open';
+        $ticket->save();
 
         $userId = auth()->id();
 
@@ -28,7 +29,6 @@ class TicketReplyController extends Controller
     
                 $attachments[] = [
                     'name' => $file->getClientOriginalName(),
-                    'size' => $file->getSize(),
                     'path' => $url,
                 ];
             }

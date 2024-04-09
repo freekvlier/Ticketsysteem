@@ -25,8 +25,6 @@ class TicketController extends Controller
             ];
         });
 
-        // dd($tickets);
-
         return Inertia::render('Ticket/Index', ['tickets' => $tickets]);
     }
 
@@ -51,7 +49,6 @@ class TicketController extends Controller
     
                 $attachments[] = [
                     'name' => $file->getClientOriginalName(),
-                    'size' => $file->getSize(),
                     'path' => $url,
                 ];
             }
