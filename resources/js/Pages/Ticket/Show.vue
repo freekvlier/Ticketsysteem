@@ -54,7 +54,7 @@
                 <strong>Content</strong>
                 <p>{{ ticket.content }}</p>
               </div>
-              <div class="mb-4">
+              <div class="mb-4" v-if="ticket.attachments && ticket.attachments.length > 0"> 
                 <strong>Attachments</strong>
                 <ul>
                   <li

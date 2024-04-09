@@ -35,6 +35,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('ticket.index')" :active="route().current('ticket.index')">
                                     Tickets
                                 </NavLink>
+                                <NavLink :href="route('ticket.create')" :active="route().current('ticket.create')">
+                                    Create Ticket
+                                </NavLink>
                             </div>
                         </div>
 

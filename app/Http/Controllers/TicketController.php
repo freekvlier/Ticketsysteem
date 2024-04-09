@@ -12,9 +12,16 @@ use Illuminate\Support\Facades\Storage;
 
 class TicketController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = Ticket::paginate(20)->through(function ($ticket) {
+        $query = Ticket::query();
+
+        $sortBy = $request->input('sortBy', 'id');
+        $sortDirection = $request->input('sortDirection', 'asc');
+        
+        $query->orderBy($sortBy, $sortDirection);
+
+        $tickets = $query->paginate(20)->through(function ($ticket) {
             return [
                 'id' => $ticket->id,
                 'name' => $ticket->name,
@@ -23,9 +30,13 @@ class TicketController extends Controller
                 'priority' => $ticket->priority,
                 'status' => $ticket->status,
             ];
-        });
+        })->withQueryString();
 
-        return Inertia::render('Ticket/Index', ['tickets' => $tickets]);
+        return Inertia::render('Ticket/Index', [
+            'tickets' => $tickets,
+            'sortBy' => $sortBy,
+            'sortDirection' => $sortDirection,
+        ]);
     }
 
     public function create()

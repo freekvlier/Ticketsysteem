@@ -54,7 +54,6 @@ cd Ticketsystem
 
 ```
 composer install
-
 ```
 
 4. Install JavaScript dependencies:
