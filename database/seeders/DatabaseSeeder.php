@@ -17,8 +17,12 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'admin',
-            'email' => 'test@example.com',
+            'email' => 'admin@admin',
             'password' => bcrypt('admin'),
         ]);
+
+        $this->call(TicketsTableSeeder::class);
+
+        $this->call(TicketRepliesTableSeeder::class);
     }
 }
