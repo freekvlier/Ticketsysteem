@@ -42,78 +42,77 @@ List of technologies used in the project:
 1. Clone the repository:
 
 ```
-git clone <repository_url>
+git clone https://github.com/freekvlier/Ticketsystem
 ```
 
-2. Install PHP dependencies:
-
+2. Navigate to the project directory:
+```
+cd Ticketsystem   
 ```
 
+3. Install PHP dependencies:
+
+```
 composer install
 
 ```
 
-3. Install JavaScript dependencies:
+4. Install JavaScript dependencies:
 
 ```
-
 npm install
 ```
 
-4. Create a .env file by copying the .env.example file:
+5. Create a .env file by copying the .env.example file:
 
 ```
-
 cp .env.example .env
 ```
 
-5. Generate an application key:
+6. Generate an application key:
 
 ```
-
 php artisan key:generate
 ```
 
-6. Configure your database connection in the .env file.
+7. Configure your database connection in the .env file.
 
-7. Migrate the database:
+8. Migrate the database:
 
 ```
-
 php artisan migrate
 ```
 
-8. Seed the database (optional):
+9. Seed the database (optional):
 
 ```
-
 php artisan db:seed
 ```
 
-9. Compile assets:
+10. Compile assets:
 
 ```
 npm run dev
 ```
 
-10. Serve the application:
+11. Serve the application:
 
 ```
 php artisan serve
 ```
-11. Access the application in your browser at http://localhost.
+12. Access the application in your browser at http://localhost.
 
 ## Installation using Docker (Laravel Sail)
 
 1. Clone the repository:
 
 ```
-git clone <repository_url>
+git clone https://github.com/freekvlier/Ticketsystem
 ```
 
 2. Navigate to the project directory:
 ```
-cd <project-directory>
+cd Ticketsystem
 ```
 
 3. Create a .env file by copying the .env.example file:
@@ -125,7 +124,12 @@ cp .env.example .env
 4. Generate an application key:
 
 ```
-php artisan key:generate
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    php artisan key:generate
 ```
 
 5. Install PHP dependencies using Laravel Sail:

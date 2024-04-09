@@ -19,7 +19,7 @@
             </div>
           </div>
           <div v-if="tickets.links">
-            <pagination :links="tickets.links" />
+            <Pagination :links="tickets.links" />
           </div>
         </div>
       </div>
