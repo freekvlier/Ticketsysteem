@@ -105,6 +105,7 @@ php artisan serve
 ```
 
 13. Access the application in your browser at http://localhost.
+    - If db:seed has run, user with email:admin@admin password:admin can be used
 
 ## Installation using Docker (Laravel Sail)
 
@@ -157,6 +158,7 @@ php artisan storage:link
 ```
 
 8. Access the application in your browser at http://localhost.
+    - If db:seed has run, user with email:admin@admin password:admin can be used
 
 ## Usage
 
